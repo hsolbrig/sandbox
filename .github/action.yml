@@ -1,0 +1,26 @@
+name: Test
+description: >-
+  This is a prototype of an action that updates a set of online test files
+
+on:
+  push:
+
+jobs:
+  update-test-files:
+    name: Update test files
+
+    runs-on: ubuntu-16.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update expected files
+        run: echo `date` ":" `pwd` >> expected/test_file.txt
+      - name: Commit changes and push
+        run: |
+          if [[ ! -z $(git status -s expected) ]]
+          then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m 'Automated update to docs with GitHub Actions' expected
+            git push
+          fi
