@@ -1,6 +1,4 @@
 name: Test
-description: >-
-  This is a prototype of an action that updates a set of online test files
 
 on:
   push:
